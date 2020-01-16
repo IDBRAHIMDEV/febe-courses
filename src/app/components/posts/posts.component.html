@@ -1,0 +1,72 @@
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <h1>List of posts <span class="badge" [ngClass]="{
+            'badge-success': posts.length,
+            'badge-warning': !posts.length
+        }">
+            {{ posts.length }}
+        </span> </h1>
+    </div>
+    <div class="col-md-6 text-right">
+        <button (click)="showForm()" class="btn btn-success btn-sm">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+</div>
+
+<div class="row" *ngIf="display">
+    <div class="col-md-4 mx-auto">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input [(ngModel)]="myPost.title" id="title" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="body">Body</label>
+            <textarea [(ngModel)]="myPost.body" id="body" rows="4" class="form-control"></textarea>
+        </div>
+       
+        <button (click)="savePost()" class="btn btn-block btn-primary"><i class="fa fa-plus"></i> Add Post</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+       
+        
+        <div *ngIf="!posts.length" class="my-3 alert alert-warning alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <strong>Warning</strong> Posts not found on our Server
+        </div>
+
+    
+
+        <table class="table" *ngIf="posts.length">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Body</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let post of posts">
+                    <td scope="row">{{ post.title }}</td>
+                    <td>{{ post.body }}</td>
+                    <td class="text-right">
+                        <button class="btn btn-sm btn-warning mr-1">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                        <button (click)="deleteOnePost(post.id)" class="btn btn-sm btn-dark">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </td>
+                </tr>
+               
+            </tbody>
+        </table>
+    </div>
+</div>
